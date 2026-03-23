@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aqua Shop Presentation Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              aqua: {
+                400: "#22d3ee",
+                500: "#06b6d4",
+                900: "#164e63",
+              },
+            },
+            fontFamily: {
+              sans: [
+                "Segoe UI",
+                "Roboto",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif",
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* CSS tuỳ chỉnh cho hiệu ứng chuyển slide */
+      .slide {
+        transition:
+          opacity 0.4s ease-in-out,
+          transform 0.4s ease-in-out;
+      }
+      .slide-hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.98);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .slide-active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1);
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Hiệu ứng kính mờ cho nội dung */
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(34, 211, 238, 0.2);
+      }
+
+      /* Định dạng danh sách tùy chỉnh */
+      ul.custom-list li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      ul.custom-list li::before {
+        content: "•";
+        color: #22d3ee;
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+        font-size: 1.2rem;
+        top: -2px;
+      }
+
+      /* Animation Fade In */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Animation Slide Up */
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Animation Scale Bounce */
+      @keyframes scaleBounce {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Animation Glow Pulse */
+      @keyframes glowPulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 5px rgba(34, 211, 238, 0.5),
+            inset 0 0 5px rgba(34, 211, 238, 0.1);
+        }
+        50% {
+          box-shadow:
+            0 0 20px rgba(34, 211, 238, 0.8),
+            inset 0 0 10px rgba(34, 211, 238, 0.3);
+        }
+      }
+
+      /* Animation cho info box */
+      .info-box {
+        animation:
+          slideUp 0.8s ease-out,
+          glowPulse 3s ease-in-out infinite;
+      }
+
+      /* Animation cho từng member */
+      .member-item {
+        animation: fadeIn 0.6s ease-out forwards;
+        opacity: 0;
+        transition: all 0.3s ease;
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+      .member-item:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .member-item:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .member-item:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      .member-item:nth-child(4) {
+        animation-delay: 0.5s;
+      }
+      .member-item:nth-child(5) {
+        animation-delay: 0.6s;
+      }
+      .member-item:nth-child(6) {
+        animation-delay: 0.7s;
+      }
+
+      /* Hover effect cho member */
+      .member-item:hover {
+        background: rgba(34, 211, 238, 0.1);
+        transform: translateX(5px);
+        box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+      }
+
+      /* Leader badge pulse */
+      .leader-badge {
+        animation: scaleBounce 2s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      /* Animation Fish Floating */
+      @keyframes fishFloat {
+        0%,
+        100% {
+          transform: translateY(0px) rotateZ(0deg);
+        }
+        25% {
+          transform: translateY(-15px) rotateZ(2deg);
+        }
+        50% {
+          transform: translateY(-25px) rotateZ(0deg);
+        }
+        75% {
+          transform: translateY(-15px) rotateZ(-2deg);
+        }
+      }
+
+      /* Thẻ animate cho cá */
+      .fish-icon {
+        animation: fishFloat 3s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-950 min-h-screen text-slate-100 flex flex-col items-center justify-center overflow-hidden selection:bg-cyan-500 selection:text-white"
+  >
+    <main
+      class="w-full max-w-6xl aspect-video relative flex flex-col shadow-2xl shadow-cyan-900/50 rounded-2xl overflow-hidden glass-panel border-cyan-800/50"
+    >
+      <div
+        id="presentation-container"
+        class="relative w-full h-full flex-grow p-8 md:p-12 overflow-hidden"
+      >
+        <div
+          class="slide slide-active flex flex-col items-center justify-center text-center h-full"
+        >
+          <i
+            class="fa-solid fa-fish-fins text-6xl text-cyan-400 mb-6 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] fish-icon"
+          ></i>
+          <h1
+            class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-4 tracking-tight"
+          >
+            AQUA SHOP
+          </h1>
+          <h2 class="text-xl md:text-3xl font-light text-cyan-100 mb-12">
+            Aquarium Store Management System
+          </h2>
+          <div
+            class="bg-slate-800/50 rounded-xl p-8 border border-slate-700 w-full max-w-5xl info-box flex flex-col items-center justify-center gap-4"
+          >
+            <div class="text-center w-full mb-2">
+              <p
+                class="text-cyan-400 font-semibold mb-1 uppercase text-sm tracking-wider"
+              >
+                Team Name
+              </p>
+              <p
+                class="text-2xl mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"
+              >
+                Group 2
+              </p>
+            </div>
+
+            <div class="flex justify-around items-start gap-12 w-full">
+              <div class="flex-1">
+                <p
+                  class="text-cyan-400 font-semibold mb-4 uppercase text-xs tracking-wider text-center"
+                >
+                  Team Members
+                </p>
+                <div
+                  class="grid grid-cols-2 gap-x-8 gap-y-2 text-slate-200 text-xs"
+                >
+                  <div class="member-item text-left">
+                    <span class="text-emerald-400 font-bold">CE180726</span> -
+                    Lê Huỳnh Minh Khoa (Leader)
+                    <span
+                      class="text-yellow-400 text-xs font-semibold leader-badge"
+                      >★</span
+                    >
+                  </div>
+                  <div class="member-item text-left">
+                    <span class="text-cyan-300 font-semibold">CE181464</span> -
+                    Trần Lê Thiên Bảo
+                  </div>
+                  <div class="member-item text-left">
+                    <span class="text-cyan-300 font-semibold">CE201585</span> -
+                    Đinh Đại Phát
+                  </div>
+                  <div class="member-item text-left">
+                    <span class="text-cyan-300 font-semibold">CE200663</span> -
+                    Lâm Tiến Thịnh
+                  </div>
+                  <div class="member-item text-left">
+                    <span class="text-cyan-300 font-semibold">CE200192</span> -
+                    Nguyễn Chí Trọng
+                  </div>
+                  <div class="member-item text-left">
+                    <span class="text-cyan-300 font-semibold">CE201260</span> -
+                    Phan Quốc Nam
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-l border-slate-600 pl-8">
+                <p
+                  class="text-cyan-400 font-semibold mb-2 uppercase text-sm tracking-wider"
+                >
+                  Instructor
+                </p>
+                <p class="text-base font-semibold text-cyan-200">
+                  Prof. Võ Hồng Khanh
+                </p>
+                <p class="text-slate-400 text-xs mt-3">
+                  Aqua Shop - Inventory<br />Management System
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide-hidden h-full flex flex-col">
+          <header class="mb-8 border-b border-cyan-800/50 pb-4">
+            <h2
+              class="text-3xl font-bold text-cyan-400 flex items-center gap-3"
+            >
+              <i class="fa-solid fa-info-circle"></i> Introduction & Overview
+            </h2>
+          </header>
+          <div
+            class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+          >
+            <div
+              class="bg-slate-800/40 p-6 rounded-xl border border-rose-900/50 h-full"
+            >
+              <h3
+                class="text-xl font-semibold text-rose-400 mb-4 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-triangle-exclamation"></i> The Problem
+              </h3>
+              <ul class="custom-list text-slate-300 text-lg space-y-3">
+                <li>Manual record-keeping (paper-based).</li>
+                <li>Prone to human errors & data loss.</li>
+                <li>Time-consuming inventory checks.</li>
+              </ul>
+            </div>
+            <div
+              class="bg-slate-800/40 p-6 rounded-xl border border-cyan-800/50 h-full"
+            >
+              <h3
+                class="text-xl font-semibold text-cyan-400 mb-4 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-lightbulb"></i> Our Solution
+              </h3>
+              <p class="text-lg text-slate-200 mb-6">
+                A digitized inventory management system built with
+                <span class="font-bold text-yellow-500">Java Console</span>.
+              </p>
+              <h4
+                class="text-md font-semibold text-slate-400 mb-2 uppercase tracking-wide"
+              >
+                Key Benefits
+              </h4>
+              <ul class="custom-list text-slate-300 text-lg space-y-2">
+                <li>Accurate tracking of fish imported/exported.</li>
+                <li>Flexible price updates.</li>
+                <li>Secure and permanent data storage.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide-hidden h-full flex flex-col">
+          <header class="mb-6 border-b border-cyan-800/50 pb-4">
+            <h2 class="text-3xl font-bold text-cyan-400 flex items-center gap-3">
+              <i class="fa-solid fa-sitemap"></i> System Architecture & UML
+            </h2>
+            <p class="text-slate-400 text-sm mt-2"><i class="fa-solid fa-hand-pointer animate-pulse text-cyan-400"></i> Click vào từng Class bên dưới để xem Source Code</p>
+          </header>
+
+          <div class="flex-grow flex gap-8 items-center">
+            <div class="w-1/2 flex flex-col gap-4">
+              <div 
+                onclick="showCode('FishManagement')"
+                class="bg-slate-800/60 p-5 rounded-xl border-l-4 border-emerald-500 cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:bg-slate-700/80 group"
+              >
+                <h3 class="text-xl font-bold text-emerald-400 mb-2 flex justify-between items-center">
+                  <span>Class <code>FishManagement</code> (Model)</span>
+                  <i class="fa-solid fa-code text-slate-500 group-hover:text-emerald-400"></i>
+                </h3>
+                <ul class="custom-list text-slate-300 text-md">
+                  <li>Represents fish entities (ID, Name, Price, Quantity).</li>
+                  <li>
+                    Applies <strong>Encapsulation</strong>:
+                    <code>private</code> attributes, accessed via
+                    <code>getters/setters</code>.
+                  </li>
+                </ul>
+              </div>
+
+              <div 
+                onclick="showCode('AquaShop')"
+                class="bg-slate-800/60 p-5 rounded-xl border-l-4 border-blue-500 cursor-pointer transform transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:bg-slate-700/80 group"
+              >
+                <h3 class="text-xl font-bold text-blue-400 mb-2 flex justify-between items-center">
+                  <span>Class <code>AquaShop</code> (Controller)</span>
+                  <i class="fa-solid fa-code text-slate-500 group-hover:text-blue-400"></i>
+                </h3>
+                <ul class="custom-list text-slate-300 text-md">
+                  <li>Manages the core logic and operations.</li>
+                  <li>
+                    Uses <code>ArrayList&lt;FishManagement&gt;</code> to store object data.
+                  </li>
+                  <li>Handles user inputs via <code>Scanner</code>.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="w-1/2 flex items-center justify-center">
+              <div class="w-full h-[420px] bg-slate-900/60 rounded-xl p-3 flex items-center justify-center shadow-lg">
+                <img 
+                  src="https://i.ibb.co/99053JPB/Gemini-Generated-Image-8i8yts8i8yts8i8y.png"
+                  alt="UML Diagram"
+                  class="max-w-full max-h-full object-contain rounded-lg transition-transform duration-300 hover:scale-105"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide-hidden h-full flex flex-col">
+          <header class="mb-8 border-b border-cyan-800/50 pb-4">
+            <h2
+              class="text-3xl font-bold text-cyan-400 flex items-center gap-3"
+            >
+              <i class="fa-solid fa-star"></i> Core Features
+            </h2>
+          </header>
+          <div class="flex-grow grid grid-cols-3 gap-6">
+            <div
+              class="bg-slate-800/40 p-6 rounded-xl border border-cyan-800/50 hover:border-cyan-400 transition-colors"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-cyan-900/50 flex items-center justify-center mb-4 text-cyan-400 text-xl"
+              >
+                <i class="fa-solid fa-database"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-100 mb-4">
+                CRUD Operations
+              </h3>
+              <ul class="space-y-3 text-slate-300">
+                <li>
+                  <strong class="text-emerald-400">C</strong>reate: Add new
+                  fish.
+                </li>
+                <li>
+                  <strong class="text-blue-400">R</strong>ead: Display complete
+                  list.
+                </li>
+                <li>
+                  <strong class="text-yellow-400">U</strong>pdate: Adjust
+                  prices.
+                </li>
+                <li>
+                  <strong class="text-rose-400">D</strong>elete: Remove from
+                  system.
+                </li>
+              </ul>
+            </div>
+
+            <div
+              class="bg-slate-800/40 p-6 rounded-xl border border-cyan-800/50 hover:border-cyan-400 transition-colors"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-purple-900/50 flex items-center justify-center mb-4 text-purple-400 text-xl"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-100 mb-4">
+                Smart Search
+              </h3>
+              <p class="text-slate-300">
+                Relative string matching. Supports
+                <span class="text-purple-300 font-semibold"
+                  >case-insensitive</span
+                >
+                keyword searches to easily find any fish model without exact
+                names.
+              </p>
+            </div>
+
+            <div
+              class="bg-slate-800/40 p-6 rounded-xl border border-cyan-800/50 hover:border-cyan-400 transition-colors"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-orange-900/50 flex items-center justify-center mb-4 text-orange-400 text-xl"
+              >
+                <i class="fa-solid fa-file-export"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-100 mb-4">
+                File I/O (Persistence)
+              </h3>
+              <ul class="custom-list text-slate-300 space-y-2">
+                <li>
+                  Automatically loads data from <code>AquaShop.txt</code> on
+                  startup.
+                </li>
+                <li>Saves all changes permanently upon exiting application.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide-hidden h-full flex flex-col">
+          <header class="mb-6 border-b border-cyan-800/50 pb-4">
+            <h2
+              class="text-3xl font-bold text-cyan-400 flex items-center gap-3"
+            >
+              <i class="fa-solid fa-code"></i> Technical Highlights & Error
+              Handling
+            </h2>
+          </header>
+          <div class="flex-grow flex flex-col justify-center gap-4">
+            <div class="bg-slate-800/50 rounded-lg p-5 flex items-start gap-4">
+              <i
+                class="fa-solid fa-shield-halved text-3xl text-emerald-400 mt-1"
+              ></i>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 mb-1">
+                  Data Validation & Crash Prevention
+                </h3>
+                <p class="text-slate-300">
+                  Uses
+                  <code class="text-yellow-400 bg-slate-900 px-2 py-1 rounded"
+                    >Try-Catch</code
+                  >
+                  blocks &
+                  <code class="text-blue-400 bg-slate-900 px-2 py-1 rounded"
+                    >while</code
+                  >
+                  loops to prevent system crashes when users input string text
+                  instead of numerical values.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="bg-slate-800/50 rounded-lg p-5 flex items-start gap-4 border-l-4 border-rose-500"
+            >
+              <i
+                class="fa-solid fa-scale-balanced text-3xl text-rose-400 mt-1"
+              ></i>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">
+                  Strict Business Logic
+                </h3>
+                <ul class="flex gap-4 text-slate-300 text-sm">
+                  <li class="bg-slate-900 px-3 py-2 rounded-md">
+                    <i class="fa-solid fa-xmark text-rose-500 mr-2"></i>No
+                    negative price/quantity
+                  </li>
+                  <li class="bg-slate-900 px-3 py-2 rounded-md">
+                    <i class="fa-solid fa-xmark text-rose-500 mr-2"></i>No
+                    duplicate IDs
+                  </li>
+                  <li class="bg-slate-900 px-3 py-2 rounded-md">
+                    <i class="fa-solid fa-xmark text-rose-500 mr-2"></i>No empty
+                    names
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-slate-800/50 rounded-lg p-5 flex items-start gap-4">
+              <i
+                class="fa-solid fa-table-columns text-3xl text-cyan-400 mt-1"
+              ></i>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 mb-1">
+                  UI Optimization (Console)
+                </h3>
+                <p class="text-slate-300">
+                  Uses <code>System.out.printf</code> to format string tables
+                  beautifully. Automatically truncates extremely long names
+                  (adds "...") to prevent console table layout from breaking.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide-hidden h-full flex flex-col">
+          <header class="mb-4 border-b border-cyan-800/50 pb-4">
+            <h2
+              class="text-3xl font-bold text-cyan-400 flex items-center gap-3"
+            >
+              <i class="fa-solid fa-desktop"></i> Live Demonstration
+            </h2>
+          </header>
+          <div class="flex-grow flex gap-6 items-center">
+            <div class="w-1/3">
+              <h3 class="text-xl font-bold text-slate-200 mb-4">
+                Demo Scenarios:
+              </h3>
+              <ol
+                class="space-y-4 text-slate-300 list-decimal list-inside font-medium text-lg"
+              >
+                <li class="p-2 rounded hover:bg-slate-800 transition-colors">
+                  Auto-loading previous data
+                </li>
+                <li class="p-2 rounded hover:bg-slate-800 transition-colors">
+                  Triggering validation errors
+                  <span class="text-sm font-normal text-slate-500 block ml-6"
+                    >(intentional wrong inputs)</span
+                  >
+                </li>
+                <li class="p-2 rounded hover:bg-slate-800 transition-colors">
+                  Add, Update, Delete records
+                </li>
+                <li class="p-2 rounded hover:bg-slate-800 transition-colors">
+                  Displaying formatted table
+                </li>
+                <li class="p-2 rounded hover:bg-slate-800 transition-colors">
+                  Exiting & auto-saving file
+                </li>
+              </ol>
+            </div>
+            <div
+              class="w-2/3 bg-black rounded-xl border border-slate-700 shadow-2xl h-full flex flex-col overflow-hidden font-mono text-sm"
+            >
+              <div
+                class="bg-slate-800 px-4 py-2 flex gap-2 items-center border-b border-slate-700"
+              >
+                <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                <span class="ml-2 text-slate-400 text-xs"
+                  >Java - AquaShop Console</span
+                >
+              </div>
+              <div
+                class="p-4 text-green-400 flex-grow flex flex-col justify-center items-center relative group"
+              >
+                <i
+                  class="fa-solid fa-play text-6xl text-slate-600 group-hover:text-cyan-400 transition-colors cursor-pointer z-10"
+                ></i>
+                <p
+                  class="mt-4 text-slate-400 group-hover:text-cyan-200 transition-colors z-10 font-sans"
+                >
+                  [ Switch to NetBeans / IDE ]
+                </p>
+
+                <div
+                  class="absolute top-4 left-4 text-left opacity-30 pointer-events-none"
+                >
+                  <p>Loading data from AquaShop.txt...</p>
+                  <p>Load successful. 3 records found.</p>
+                  <br />
+                  <p>=== AQUA SHOP MENU ===</p>
+                  <p>1. Add Fish</p>
+                  <p>2. Display Fish List</p>
+                  <p>3. Update Price</p>
+                  <p>4. Delete Fish</p>
+                  <p>5. Exit</p>
+                  <p>Enter your choice: _</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide-hidden h-full flex flex-col">
+          <header class="mb-10 border-b border-cyan-800/50 pb-4">
+            <h2
+              class="text-3xl font-bold text-cyan-400 flex items-center gap-3"
+            >
+              <i class="fa-solid fa-flag-checkered"></i> Conclusion & Q&A
+            </h2>
+          </header>
+          <div
+            class="flex-grow flex flex-col items-center justify-center text-center pb-10"
+          >
+            <h3 class="text-2xl font-semibold text-slate-200 mb-8">
+              What we applied in this project:
+            </h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mb-12">
+              <div
+                class="bg-cyan-900/30 border border-cyan-500/30 p-4 rounded-lg"
+              >
+                <i class="fa-brands fa-java text-3xl mb-2 text-cyan-400"></i>
+                <p class="font-bold">OOP Concepts</p>
+                <p class="text-xs text-slate-400">Encapsulation, Classes</p>
+              </div>
+              <div
+                class="bg-blue-900/30 border border-blue-500/30 p-4 rounded-lg"
+              >
+                <i class="fa-solid fa-list text-3xl mb-2 text-blue-400"></i>
+                <p class="font-bold">ArrayList</p>
+                <p class="text-xs text-slate-400">Dynamic Management</p>
+              </div>
+              <div
+                class="bg-rose-900/30 border border-rose-500/30 p-4 rounded-lg"
+              >
+                <i
+                  class="fa-solid fa-bug-slash text-3xl mb-2 text-rose-400"
+                ></i>
+                <p class="font-bold">Try-Catch</p>
+                <p class="text-xs text-slate-400">Exception Handling</p>
+              </div>
+              <div
+                class="bg-orange-900/30 border border-orange-500/30 p-4 rounded-lg"
+              >
+                <i
+                  class="fa-solid fa-file-lines text-3xl mb-2 text-orange-400"
+                ></i>
+                <p class="font-bold">File I/O</p>
+                <p class="text-xs text-slate-400">Data Persistence</p>
+              </div>
+            </div>
+
+            <h1
+              class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-4 tracking-tight"
+            >
+              THANK YOU!
+            </h1>
+            <p class="text-2xl text-slate-300">Any Questions?</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="code-modal" class="absolute inset-0 z-50 flex items-center justify-center hidden bg-black/80 backdrop-blur-md transition-opacity duration-300 opacity-0">
+        <div class="bg-slate-900 border border-cyan-700/50 rounded-xl w-11/12 max-w-4xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="code-modal-content">
+          <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <i class="fa-brands fa-java text-orange-400 text-xl"></i>
+              <span id="modal-title" class="text-slate-200 font-mono font-bold">ClassName.java</span>
+            </div>
+            <button onclick="closeCode()" class="text-slate-400 hover:text-rose-400 transition-colors">
+              <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+          </div>
+          <div class="p-6 overflow-y-auto max-h-[70vh] text-sm md:text-base">
+            <pre><code id="code-content" class="font-mono text-slate-300">
+  </code></pre>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const slides = document.querySelectorAll(".slide");
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        // Hàm cập nhật trạng thái các slide
+        function updateSlides() {
+          slides.forEach((slide, index) => {
+            if (index === currentIndex) {
+              slide.classList.remove("slide-hidden");
+              slide.classList.add("slide-active");
+            } else {
+              slide.classList.remove("slide-active");
+              slide.classList.add("slide-hidden");
+            }
+          });
+        }
+
+        // Lắng nghe sự kiện bàn phím (Mũi tên trái/phải hoặc khoảng trắng)
+        document.addEventListener("keydown", (e) => {
+          // Nếu Modal đang mở thì không cho chuyển slide
+          const isModalOpen = !document.getElementById('code-modal').classList.contains('hidden');
+          if (isModalOpen) return;
+
+          if (e.key === "ArrowRight" || e.key === " ") {
+            if (currentIndex < totalSlides - 1) {
+              currentIndex++;
+              updateSlides();
+            }
+          } else if (e.key === "ArrowLeft") {
+            if (currentIndex > 0) {
+              currentIndex--;
+              updateSlides();
+            }
+          }
+        });
+
+        // Khởi tạo trạng thái ban đầu
+        updateSlides();
+      });
+
+      // --- LOGIC CHO MODAL HIỂN THỊ CODE ---
+      const codeData = {
+        
+        // ----------------------------------------------------
+        // CLASS FISH MANAGEMENT
+        // ----------------------------------------------------
+        'FishManagement': `
+<span class="text-emerald-400">package</span> aquashop;
+
+<span class="text-emerald-400">public class</span> <span class="text-yellow-300">FishManagement</span> {
+    <span class="text-emerald-400">private int</span> id;
+    <span class="text-emerald-400">private String</span> name;
+    <span class="text-emerald-400">private double</span> price;
+    <span class="text-emerald-400">private int</span> quantity; 
+
+    <span class="text-emerald-400">public</span> <span class="text-yellow-300">FishManagement</span>(<span class="text-emerald-400">int</span> id, <span class="text-emerald-400">String</span> name, <span class="text-emerald-400">double</span> price, <span class="text-emerald-400">int</span> quantity) {
+        <span class="text-rose-400">this</span>.id = id;
+        <span class="text-rose-400">this</span>.name = name;
+        <span class="text-rose-400">this</span>.price = price;
+        <span class="text-rose-400">this</span>.quantity = quantity;
+    }
+
+    <span class="text-emerald-400">public int</span> <span class="text-blue-300">getId</span>() { <span class="text-emerald-400">return</span> id; }
+    <span class="text-emerald-400">public String</span> <span class="text-blue-300">getName</span>() { <span class="text-emerald-400">return</span> name; }
+    <span class="text-emerald-400">public double</span> <span class="text-blue-300">getPrice</span>() { <span class="text-emerald-400">return</span> price; }
+    <span class="text-emerald-400">public int</span> <span class="text-blue-300">getQuantity</span>() { <span class="text-emerald-400">return</span> quantity; }
+
+    <span class="text-emerald-400">public void</span> <span class="text-blue-300">setPrice</span>(<span class="text-emerald-400">double</span> price) {
+        <span class="text-rose-400">this</span>.price = price;
+    }
+}`,
+
+        // ----------------------------------------------------
+        // CLASS AQUA SHOP
+        // ----------------------------------------------------
+        'AquaShop': `
+<span class="text-emerald-400">package</span> aquashop;
+
+<span class="text-emerald-400">import</span> java.io.File;
+<span class="text-emerald-400">import</span> java.io.FileWriter;
+<span class="text-emerald-400">import</span> java.io.PrintWriter;
+<span class="text-emerald-400">import</span> java.util.ArrayList;
+<span class="text-emerald-400">import</span> java.util.Scanner;
+
+<span class="text-emerald-400">public class</span> <span class="text-yellow-300">AquaShop</span> {
+    <span class="text-emerald-400">static</span> <span class="text-yellow-300">ArrayList</span>&lt;<span class="text-yellow-300">FishManagement</span>&gt; fishList = <span class="text-emerald-400">new</span> <span class="text-yellow-300">ArrayList</span>&lt;&gt;();
+    <span class="text-emerald-400">static</span> <span class="text-yellow-300">Scanner</span> sc = <span class="text-emerald-400">new</span> <span class="text-yellow-300">Scanner</span>(System.in);
+
+    <span class="text-emerald-400">public static void</span> <span class="text-blue-300">main</span>(<span class="text-emerald-400">String</span>[] args) {
+        <span class="text-emerald-400">try</span> {
+            <span class="text-yellow-300">File</span> dataDir = <span class="text-emerald-400">new</span> <span class="text-yellow-300">File</span>(<span class="text-green-300">"data"</span>);
+            <span class="text-emerald-400">if</span> (!dataDir.exists()) {
+                dataDir.mkdirs();
+            }
+            <span class="text-emerald-400">String</span> filePath = <span class="text-green-300">"data/AquaShop.txt"</span>;
+            loadDataFromFile(filePath);
+        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">Exception</span> e) {
+            System.out.println(<span class="text-green-300">"Error initializing data: "</span> + e.getMessage());
+        }
+
+        <span class="text-emerald-400">while</span> (<span class="text-emerald-400">true</span>) {
+            System.out.println(<span class="text-green-300">"\\n                         AQUA SHOP MANAGEMENT # SE2004-Group02"</span>);
+            System.out.println(<span class="text-green-300">"1. Add new fish."</span>);
+            System.out.println(<span class="text-green-300">"2. Search fish by name."</span>);
+            System.out.println(<span class="text-green-300">"3. Display all fish."</span>); <span class="text-slate-500">// Chức năng mới thay thế Category</span>
+            System.out.println(<span class="text-green-300">"4. Update fish price."</span>);
+            System.out.println(<span class="text-green-300">"5. Delete fish record."</span>);
+            System.out.println(<span class="text-green-300">"6. Quit."</span>);
+            System.out.print(<span class="text-green-300">"     Please select a function: "</span>);
+            
+            <span class="text-emerald-400">int</span> choice;
+            <span class="text-emerald-400">try</span> {
+                choice = Integer.parseInt(sc.nextLine().trim());
+            } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+                System.out.println(<span class="text-green-300">"Error: Please enter a valid number (1-6)!"</span>);
+                <span class="text-emerald-400">continue</span>; 
+            }
+            
+            <span class="text-slate-500">// Chặn tính năng 2, 3, 4, 5 nếu danh sách trống</span>
+            <span class="text-emerald-400">if</span> (choice &gt;= <span class="text-emerald-400">2</span> && choice &lt;= <span class="text-emerald-400">5</span> && fishList.isEmpty()) {
+                System.out.println(<span class="text-green-300">"Error: No data available! Please add a fish first."</span>);
+                <span class="text-emerald-400">continue</span>;
+            }
+
+            <span class="text-emerald-400">switch</span> (choice) {
+                <span class="text-emerald-400">case</span> <span class="text-emerald-400">1</span>:
+                    addFish();
+                    <span class="text-emerald-400">break</span>;
+                <span class="text-emerald-400">case</span> <span class="text-emerald-400">2</span>:
+                    searchByName();
+                    <span class="text-emerald-400">break</span>;
+                <span class="text-emerald-400">case</span> <span class="text-emerald-400">3</span>:
+                    displayFishList(); <span class="text-slate-500">// Gọi hàm hiển thị bảng</span>
+                    <span class="text-emerald-400">break</span>;
+                <span class="text-emerald-400">case</span> <span class="text-emerald-400">4</span>:
+                    updatePrice();
+                    <span class="text-emerald-400">break</span>;
+                <span class="text-emerald-400">case</span> <span class="text-emerald-400">5</span>:
+                    deleteFish();
+                    <span class="text-emerald-400">break</span>;
+                <span class="text-emerald-400">case</span> <span class="text-emerald-400">6</span>:
+                    saveDataToFile(<span class="text-green-300">"data/AquaShop.txt"</span>);
+                    System.out.println(<span class="text-green-300">"-&gt; Saved "</span> + fishList.size() + <span class="text-green-300">" fish records to system."</span>);
+                    System.out.println(<span class="text-green-300">"Exited the program."</span>);
+                    System.exit(<span class="text-emerald-400">0</span>);
+                <span class="text-emerald-400">default</span>:
+                    System.out.println(<span class="text-green-300">"Invalid choice. Please choose from 1 to 6."</span>);
+            }
+        }
+    } 
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">loadDataFromFile</span>(<span class="text-emerald-400">String</span> filename) {
+        <span class="text-emerald-400">try</span> {
+            <span class="text-yellow-300">File</span> file = <span class="text-emerald-400">new</span> <span class="text-yellow-300">File</span>(filename);
+            <span class="text-emerald-400">if</span> (!file.exists()) {
+                file.createNewFile();
+                System.out.println(<span class="text-green-300">"Created new empty data file at: "</span> + filename);
+                <span class="text-emerald-400">return</span>;
+            }
+            
+            <span class="text-yellow-300">Scanner</span> fileScanner = <span class="text-emerald-400">new</span> <span class="text-yellow-300">Scanner</span>(file);
+            <span class="text-emerald-400">while</span> (fileScanner.hasNextLine()) {
+                <span class="text-emerald-400">String</span> line = fileScanner.nextLine();
+                <span class="text-emerald-400">if</span> (line.trim().isEmpty()) <span class="text-emerald-400">continue</span>;
+
+                <span class="text-emerald-400">String</span>[] parts = line.split(<span class="text-green-300">"\\\\|"</span>);
+                <span class="text-slate-500">// Chỉ còn 4 phần: id | name | price | quantity</span>
+                <span class="text-emerald-400">if</span> (parts.length == <span class="text-emerald-400">4</span>) { 
+                    <span class="text-emerald-400">int</span> id = Integer.parseInt(parts[0].trim());
+                    <span class="text-emerald-400">String</span> name = parts[1].trim();
+                    <span class="text-emerald-400">double</span> price = Double.parseDouble(parts[2].trim());
+                    <span class="text-emerald-400">int</span> quantity = Integer.parseInt(parts[3].trim());
+
+                    <span class="text-yellow-300">FishManagement</span> fish = <span class="text-emerald-400">new</span> <span class="text-yellow-300">FishManagement</span>(id, name, price, quantity);
+                    fishList.add(fish);
+                }
+            }
+            fileScanner.close();
+            
+            <span class="text-emerald-400">if</span> (!fishList.isEmpty()) {
+                System.out.println(<span class="text-green-300">"-&gt; Successfully loaded data from "</span> + filename);
+            }
+        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">Exception</span> e) {
+            System.out.println(<span class="text-green-300">"Error reading file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">saveDataToFile</span>(<span class="text-emerald-400">String</span> filename) {
+        <span class="text-emerald-400">try</span> {
+            <span class="text-yellow-300">PrintWriter</span> writer = <span class="text-emerald-400">new</span> <span class="text-yellow-300">PrintWriter</span>(<span class="text-emerald-400">new</span> <span class="text-yellow-300">FileWriter</span>(filename));
+            <span class="text-emerald-400">for</span> (<span class="text-yellow-300">FishManagement</span> f : fishList) {
+                <span class="text-slate-500">// Xóa getCategory()</span>
+                writer.println(f.getId() + <span class="text-green-300">"|"</span> + f.getName() + <span class="text-green-300">"|"</span> + f.getPrice() + <span class="text-green-300">"|"</span> + f.getQuantity());
+            }
+            writer.close();
+        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">Exception</span> e) {
+            System.out.println(<span class="text-green-300">"Error saving file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">addFish</span>() {
+        System.out.println(<span class="text-green-300">"\\n--- ADD NEW FISH ---"</span>);
+        displayFishList(); 
+
+        <span class="text-emerald-400">try</span> {
+            <span class="text-emerald-400">int</span> id;
+            <span class="text-emerald-400">while</span> (<span class="text-emerald-400">true</span>) {
+                System.out.print(<span class="text-green-300">"Enter Fish ID: "</span>);
+                <span class="text-emerald-400">try</span> {
+                    id = Integer.parseInt(sc.nextLine().trim());
+                    <span class="text-emerald-400">if</span> (id &lt;= <span class="text-emerald-400">0</span> || id &gt; <span class="text-emerald-400">99999</span>) {
+                        System.out.println(<span class="text-green-300">"Error: ID must be between 1 and 99999. Please try again!"</span>);
+                        <span class="text-emerald-400">continue</span>; 
+                    }
+                    <span class="text-emerald-400">boolean</span> isDuplicate = <span class="text-emerald-400">false</span>;
+                    <span class="text-emerald-400">for</span> (<span class="text-yellow-300">FishManagement</span> f : fishList) {
+                        <span class="text-emerald-400">if</span> (f.getId() == id) {
+                            isDuplicate = <span class="text-emerald-400">true</span>;
+                            <span class="text-emerald-400">break</span>;
+                        }
+                    }
+                    <span class="text-emerald-400">if</span> (isDuplicate) {
+                        System.out.println(<span class="text-green-300">"Error: ID '"</span> + id + <span class="text-green-300">"' already exists! Please enter another ID."</span>);
+                    } <span class="text-emerald-400">else</span> {
+                        <span class="text-emerald-400">break</span>; 
+                    }
+                } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+                    System.out.println(<span class="text-green-300">"Error: ID must be a valid integer!"</span>);
+                }
+            }
+
+            <span class="text-emerald-400">String</span> name;
+            <span class="text-emerald-400">while</span> (<span class="text-emerald-400">true</span>) {
+                System.out.print(<span class="text-green-300">"Enter Fish Name: "</span>);
+                name = sc.nextLine().trim(); 
+                <span class="text-emerald-400">if</span> (name.isEmpty()) {
+                    System.out.println(<span class="text-green-300">"Error: Name cannot be empty!"</span>);
+                } <span class="text-emerald-400">else if</span> (!name.matches(<span class="text-green-300">"^[a-zA-Z].*"</span>)) {
+                    System.out.println(<span class="text-green-300">"Error: Name must start with a letter!"</span>);
+                } <span class="text-emerald-400">else if</span> (name.length() &gt; <span class="text-emerald-400">50</span>) {
+                    System.out.println(<span class="text-green-300">"Error: Name is too long (Max 50 chars)!"</span>);
+                } <span class="text-emerald-400">else</span> {
+                    <span class="text-emerald-400">break</span>;
+                }
+            }
+
+            <span class="text-emerald-400">int</span> quantity;
+            <span class="text-emerald-400">while</span> (<span class="text-emerald-400">true</span>) {
+                System.out.print(<span class="text-green-300">"Enter Quantity in stock: "</span>);
+                <span class="text-emerald-400">try</span> {
+                    quantity = Integer.parseInt(sc.nextLine().trim());
+                    <span class="text-emerald-400">if</span> (quantity &lt; <span class="text-emerald-400">1</span> || quantity &gt; <span class="text-emerald-400">10000</span>) {
+                        System.out.println(<span class="text-green-300">"Error: Quantity must be between 1 and 10000!"</span>);
+                    } <span class="text-emerald-400">else</span> {
+                        <span class="text-emerald-400">break</span>; 
+                    }
+                } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+                    System.out.println(<span class="text-green-300">"Error: Quantity must be an integer!"</span>);
+                }
+            }
+            
+            <span class="text-emerald-400">for</span> (<span class="text-yellow-300">FishManagement</span> f : fishList) {
+                <span class="text-emerald-400">if</span> (f.getName().equalsIgnoreCase(name) && 
+                    f.getQuantity() == quantity) {
+                    System.out.println(<span class="text-green-300">"Error: This exact fish record already exists!"</span>);
+                    <span class="text-emerald-400">return</span>; 
+                }
+            }
+
+            <span class="text-emerald-400">double</span> price;
+            <span class="text-emerald-400">while</span> (<span class="text-emerald-400">true</span>) {
+                System.out.print(<span class="text-green-300">"Enter Price per fish ($): "</span>);
+                <span class="text-emerald-400">try</span> {
+                    price = Double.parseDouble(sc.nextLine().trim());
+                    <span class="text-emerald-400">if</span> (price &lt;= <span class="text-emerald-400">0</span> || price &gt; <span class="text-emerald-400">10000</span>) {
+                        System.out.println(<span class="text-green-300">"Error: Price must be &gt; 0 and &lt;= 10000!"</span>);
+                    } <span class="text-emerald-400">else</span> {
+                        <span class="text-emerald-400">break</span>; 
+                    }
+                } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+                    System.out.println(<span class="text-green-300">"Error: Price must be a valid number!"</span>);
+                }
+            }
+
+            <span class="text-yellow-300">FishManagement</span> newFish = <span class="text-emerald-400">new</span> <span class="text-yellow-300">FishManagement</span>(id, name, price, quantity);
+            fishList.add(newFish); 
+            
+            saveDataToFile(<span class="text-green-300">"data/AquaShop.txt"</span>);
+            System.out.println(<span class="text-green-300">"-&gt; Added successfully!"</span>);
+            displayFishList();
+
+        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">Exception</span> e) {
+            System.out.println(<span class="text-green-300">"Error: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">searchByName</span>() {
+        System.out.println(<span class="text-green-300">"\\n--- SEARCH BY NAME ---"</span>);
+        System.out.print(<span class="text-green-300">"Enter fish name to search: "</span>);
+        <span class="text-emerald-400">String</span> query = sc.nextLine().trim().toLowerCase();
+        
+        <span class="text-emerald-400">if</span> (query.isEmpty()) {
+            System.out.println(<span class="text-green-300">"Error: Search query cannot be empty!"</span>);
+            <span class="text-emerald-400">return</span>;
+        }
+        
+        <span class="text-yellow-300">ArrayList</span>&lt;<span class="text-yellow-300">FishManagement</span>&gt; results = <span class="text-emerald-400">new</span> <span class="text-yellow-300">ArrayList</span>&lt;&gt;();
+        <span class="text-emerald-400">for</span> (<span class="text-yellow-300">FishManagement</span> f : fishList) {
+            <span class="text-emerald-400">if</span> (f.getName().toLowerCase().contains(query)) {
+                results.add(f);
+            }
+        }
+        
+        <span class="text-emerald-400">if</span> (results.isEmpty()) {
+            System.out.println(<span class="text-green-300">"No fish found with name containing: '"</span> + query + <span class="text-green-300">"'"</span>);
+        } <span class="text-emerald-400">else</span> {
+            System.out.println(<span class="text-green-300">"-&gt; Found "</span> + results.size() + <span class="text-green-300">" result(s):"</span>);
+            displayTable(results); 
+        }
+    }
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">updatePrice</span>() {
+        System.out.println(<span class="text-green-300">"\\n--- UPDATE FISH PRICE ---"</span>);
+        displayFishList(); 
+        <span class="text-emerald-400">if</span> (fishList.isEmpty()) <span class="text-emerald-400">return</span>;
+
+        System.out.print(<span class="text-green-300">"\\nEnter Fish ID to update: "</span>);
+        <span class="text-emerald-400">try</span> {
+            <span class="text-emerald-400">int</span> id = Integer.parseInt(sc.nextLine().trim());
+            <span class="text-emerald-400">boolean</span> isFound = <span class="text-emerald-400">false</span>;
+
+            <span class="text-emerald-400">for</span> (<span class="text-yellow-300">FishManagement</span> f : fishList) {
+                <span class="text-emerald-400">if</span> (f.getId() == id) {
+                    isFound = <span class="text-emerald-400">true</span>;
+                    System.out.println(<span class="text-green-300">"Current price for '"</span> + f.getName() + <span class="text-green-300">"' is: "</span> + f.getPrice() + <span class="text-green-300">"$"</span>);
+                    
+                    <span class="text-emerald-400">double</span> newPrice;
+                    <span class="text-emerald-400">while</span> (<span class="text-emerald-400">true</span>) {
+                        System.out.print(<span class="text-green-300">"Enter NEW price ($): "</span>);
+                        <span class="text-emerald-400">try</span> {
+                            newPrice = Double.parseDouble(sc.nextLine().trim());
+                            <span class="text-emerald-400">if</span> (newPrice &lt;= <span class="text-emerald-400">0</span> || newPrice &gt; <span class="text-emerald-400">10000</span>) {
+                                System.out.println(<span class="text-green-300">"Error: Price must be &gt; 0 and &lt;= 10000!"</span>);
+                            } <span class="text-emerald-400">else</span> {
+                                <span class="text-emerald-400">break</span>; 
+                            }
+                        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+                            System.out.println(<span class="text-green-300">"Error: Price must be a valid number!"</span>);
+                        }
+                    }
+                    
+                    f.setPrice(newPrice);
+                    saveDataToFile(<span class="text-green-300">"data/AquaShop.txt"</span>);
+                    
+                    System.out.println(<span class="text-green-300">"-&gt; Successfully updated price!"</span>);
+                    displayFishList(); 
+                    <span class="text-emerald-400">break</span>;
+                }
+            }
+
+            <span class="text-emerald-400">if</span> (!isFound) {
+                System.out.println(<span class="text-green-300">"Error: No fish found with ID '"</span> + id + <span class="text-green-300">"'."</span>);
+            }
+        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+            System.out.println(<span class="text-green-300">"Error: ID must be an integer!"</span>);
+        }
+    }
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">deleteFish</span>() {
+        System.out.println(<span class="text-green-300">"\\n--- DELETE FISH RECORD ---"</span>);
+        displayFishList(); 
+        <span class="text-emerald-400">if</span> (fishList.isEmpty()) <span class="text-emerald-400">return</span>;
+
+        System.out.print(<span class="text-green-300">"\\nEnter Fish ID to delete: "</span>);
+        <span class="text-emerald-400">try</span> {
+            <span class="text-emerald-400">int</span> id = Integer.parseInt(sc.nextLine().trim());
+            <span class="text-emerald-400">boolean</span> exists = <span class="text-emerald-400">false</span>;
+            <span class="text-emerald-400">for</span> (<span class="text-yellow-300">FishManagement</span> f : fishList) {
+                <span class="text-emerald-400">if</span> (f.getId() == id) {
+                    exists = <span class="text-emerald-400">true</span>;
+                    <span class="text-emerald-400">break</span>;
+                }
+            }
+            
+            <span class="text-emerald-400">if</span> (!exists) {
+                System.out.println(<span class="text-green-300">"Error: ID '"</span> + id + <span class="text-green-300">"' does not exist!"</span>); 
+                <span class="text-emerald-400">return</span>;
+            }
+
+            System.out.print(<span class="text-green-300">"Are you sure you want to delete ID "</span> + id + <span class="text-green-300">"? (Y/N): "</span>);
+            <span class="text-emerald-400">String</span> confirm = sc.nextLine().trim();
+            <span class="text-emerald-400">if</span> (confirm.equalsIgnoreCase(<span class="text-green-300">"Y"</span>)) {
+                fishList.removeIf(f -&gt; f.getId() == id);
+                saveDataToFile(<span class="text-green-300">"data/AquaShop.txt"</span>);
+                System.out.println(<span class="text-green-300">"-&gt; Successfully deleted fish with ID: "</span> + id);
+                displayFishList(); 
+            } <span class="text-emerald-400">else</span> {
+                System.out.println(<span class="text-green-300">"-&gt; Deletion cancelled."</span>);
+            }
+            
+        } <span class="text-emerald-400">catch</span> (<span class="text-yellow-300">NumberFormatException</span> e) {
+            System.out.println(<span class="text-green-300">"Error: ID must be an integer!"</span>);
+        }
+    }
+
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">displayFishList</span>() {
+        <span class="text-emerald-400">if</span> (fishList.isEmpty()) {
+            System.out.println(<span class="text-green-300">"The aqua shop inventory is currently empty."</span>);
+            <span class="text-emerald-400">return</span>;
+        }
+        System.out.println(<span class="text-green-300">"\\n                         AQUA SHOP MANAGEMENT # SE2004-Group02              "</span>);
+        displayTable(fishList);
+    }
+
+    <span class="text-slate-500">// Đã xóa cột Category, căn lại bảng cho gọn gàng</span>
+    <span class="text-emerald-400">private static void</span> <span class="text-blue-300">displayTable</span>(<span class="text-yellow-300">ArrayList</span>&lt;<span class="text-yellow-300">FishManagement</span>&gt; list) {
+        <span class="text-emerald-400">String</span> border = <span class="text-green-300">"+-----+-------+----------------------+-------------------+----------+"</span>;
+        System.out.println(border);
+        System.out.printf(<span class="text-green-300">"| %3s | %5s | %-20s | %17s | %8s |%n"</span>, 
+                          <span class="text-green-300">"No."</span>, <span class="text-green-300">"ID"</span>, <span class="text-green-300">"Fish Name"</span>, <span class="text-green-300">"Price ($)"</span>, <span class="text-green-300">"Quantity"</span>);
+        System.out.println(border);
+
+        <span class="text-emerald-400">for</span> (<span class="text-emerald-400">int</span> i = <span class="text-emerald-400">0</span>; i &lt; list.size(); i++) {
+            <span class="text-yellow-300">FishManagement</span> f = list.get(i);
+            <span class="text-emerald-400">String</span> formattedPrice = String.format(<span class="text-green-300">"%.2f"</span>, f.getPrice()) + <span class="text-green-300">"$"</span>;
+            
+            <span class="text-emerald-400">String</span> displayName = f.getName();
+            <span class="text-emerald-400">if</span> (displayName.length() &gt; <span class="text-emerald-400">18</span>) displayName = displayName.substring(<span class="text-emerald-400">0</span>, <span class="text-emerald-400">15</span>) + <span class="text-green-300">"..."</span>;
+            
+            System.out.printf(<span class="text-green-300">"| %3d | %5d | %-20s | %17s | %8d |%n"</span>, 
+                              (i + <span class="text-emerald-400">1</span>), 
+                              f.getId(), 
+                              displayName, 
+                              formattedPrice, 
+                              f.getQuantity());
+        }
+        System.out.println(border);
+    }
+}`
+      };
+      // =========================================================================
+
+      // DOM Elements cho Popup hiển thị code
+      const codeModal = document.getElementById('code-modal');
+      const codeModalContent = document.getElementById('code-modal-content');
+      const codeTitle = document.getElementById('modal-title');
+      const codeDisplay = document.getElementById('code-content');
+
+      // Hàm mở Popup hiển thị code
+      window.showCode = function(className) {
+        codeTitle.textContent = className + ".java";
+        codeDisplay.innerHTML = codeData[className];
+        codeModal.classList.remove('hidden');
+        setTimeout(() => {
+          codeModal.classList.remove('opacity-0');
+          codeModalContent.classList.remove('scale-95');
+          codeModalContent.classList.add('scale-100');
+        }, 10);
+      };
+
+      // Hàm đóng Popup
+      window.closeCode = function() {
+        codeModal.classList.add('opacity-0');
+        codeModalContent.classList.remove('scale-100');
+        codeModalContent.classList.add('scale-95');
+        setTimeout(() => { codeModal.classList.add('hidden'); }, 300);
+      };
+
+      // Bấm nút ESC để đóng popup
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !codeModal.classList.contains('hidden')) {
+          closeCode();
+        }
+      });
+    </script>
+  </body>
+</html>
